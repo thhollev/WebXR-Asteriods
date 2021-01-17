@@ -1,6 +1,6 @@
 import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
-
+import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
 
 class App {
@@ -64,11 +64,16 @@ class App {
         }
 
         private setupXR() {
+            this.renderer.xr.enabled = true;
+        
+            let vrButton = VRButton.createButton(this.renderer);
+            document.body.appendChild(vrButton);
 
-
+            let controller = this.renderer.xr.getController(0);
         }
 
         private update() {
+            this.stats.update();
             this.renderer.render(this.scene, this.camera);
         }
 
