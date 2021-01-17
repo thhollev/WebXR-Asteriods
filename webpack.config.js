@@ -1,22 +1,36 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: './src/app.ts',
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'WebXR Asteroids',
+            template: 'index.html'
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "assets", to: "assets" }
+            ]
         }),
     ],
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.tsx?$/i,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+              },
         ],
     },
     resolve: {
@@ -28,5 +42,14 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: 'single',
-    },
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',     
+                },
+            },
+        },
+    }
 };
