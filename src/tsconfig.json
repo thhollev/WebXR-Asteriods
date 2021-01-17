@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "noImplicitAny": true,
+        "outDir": "../dist/",
+        "sourceMap": true,
+        "allowJs": true
+    }
+}
