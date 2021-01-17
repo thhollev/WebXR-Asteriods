@@ -1,6 +1,8 @@
 import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 
+import { Sky } from './sky';
+
 class App {
     private scene: THREE.Scene
         private camera: THREE.Camera
@@ -43,11 +45,27 @@ class App {
             this.workingMatrix = new THREE.Matrix4();
             this.workingVector = new THREE.Vector3();
 
+            // Initialize scene
+            this.initScene();
+
+            // Setup WebXR
+            this.setupXR();
+
             // OnResize
             window.addEventListener('resize', this.onResize.bind(this), false);
 
             // setAnimationLoop
             this.renderer.setAnimationLoop(this.update.bind(this));
+        }
+
+        private initScene() {
+            // Create background stars
+            new Sky(this.scene);
+        }
+
+        private setupXR() {
+
+
         }
 
         private update() {
