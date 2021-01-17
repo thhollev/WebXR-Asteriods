@@ -10,8 +10,9 @@ class App {
         private stats: Stats
         private clock: THREE.Clock
         private raycaster: THREE.Raycaster
-        private workingMatrix = new THREE.Matrix4
-        private workingVector = new THREE.Vector3
+        private workingMatrix: THREE.Matrix4
+        private workingVector: THREE.Vector3
+        private prevTime: number
         
         constructor() {
             // Scene
@@ -35,6 +36,7 @@ class App {
 
             // Clock
             this.clock = new THREE.Clock();
+            this.prevTime = 0;
 
             // Statistics
             this.stats = Stats();
@@ -44,6 +46,8 @@ class App {
             this.raycaster = new THREE.Raycaster();
             this.workingMatrix = new THREE.Matrix4();
             this.workingVector = new THREE.Vector3();
+                    this.prevTime = 0;
+
 
             // Initialize scene
             this.initScene();
@@ -64,8 +68,10 @@ class App {
         }
 
         private setupXR() {
+            // Make this app XR
             this.renderer.xr.enabled = true;
         
+            // Create Button to enter VR
             let vrButton = VRButton.createButton(this.renderer);
             document.body.appendChild(vrButton);
 
@@ -74,6 +80,14 @@ class App {
 
         private update() {
             this.stats.update();
+           
+            if(this.renderer.xr.getSession()) {  
+                let delta = this.clock.getElapsedTime() - this.prevTime;
+                if(delta > 1) {
+                    this.prevTime = this.clock.getElapsedTime();
+                }
+            }
+
             this.renderer.render(this.scene, this.camera);
         }
 
