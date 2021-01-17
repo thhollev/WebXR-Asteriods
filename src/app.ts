@@ -2,6 +2,7 @@ import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
+import { Asteroid, AsteroidGroup } from './asteroid';
 
 class App {
     private scene: THREE.Scene
@@ -13,6 +14,7 @@ class App {
         private workingMatrix: THREE.Matrix4
         private workingVector: THREE.Vector3
         private prevTime: number
+        private asteroidGroup: AsteroidGroup
         
         constructor() {
             // Scene
@@ -46,8 +48,6 @@ class App {
             this.raycaster = new THREE.Raycaster();
             this.workingMatrix = new THREE.Matrix4();
             this.workingVector = new THREE.Vector3();
-                    this.prevTime = 0;
-
 
             // Initialize scene
             this.initScene();
@@ -65,6 +65,10 @@ class App {
         private initScene() {
             // Create background stars
             new Sky(this.scene);
+
+            // Asteroid Group
+            this.asteroidGroup = new AsteroidGroup();
+            this.scene.add(this.asteroidGroup);
         }
 
         private setupXR() {
@@ -85,7 +89,10 @@ class App {
                 let delta = this.clock.getElapsedTime() - this.prevTime;
                 if(delta > 1) {
                     this.prevTime = this.clock.getElapsedTime();
+                    this.asteroidGroup.createAsteroid();
                 }
+
+                this.asteroidGroup.moveTowardsCamera(this.renderer.xr.getCamera(this.camera));
             }
 
             this.renderer.render(this.scene, this.camera);
