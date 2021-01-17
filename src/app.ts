@@ -1,48 +1,53 @@
 import * as THREE from '../node_modules/three/src/Three';
+import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 
 class App {
     private scene: THREE.Scene
         private camera: THREE.Camera
         private renderer: THREE.WebGLRenderer
+        private stats: Stats
+        private clock: THREE.Clock
+        private raycaster: THREE.Raycaster
+        private workingMatrix = new THREE.Matrix4
+        private workingVector = new THREE.Vector3
         
         constructor() {
             // Scene
             this.scene = new THREE.Scene();
-            this.scene.background = new THREE.Color(0x87ceeb);
-
 
             // Camera
-            this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 100 );
-            this.camera.position.z = 17;
-            this.camera.position.y = 10;
-
+            this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
+            this.camera.position.set( 0, 1.6, 3 );
 
             // Renderer
-            this.renderer = new THREE.WebGLRenderer({antialias: true});
+            this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
             this.renderer.setSize( window.innerWidth, window.innerHeight);
+            this.renderer.outputEncoding = THREE.sRGBEncoding;
             this.renderer.shadowMap.enabled = true;
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.body.appendChild( this.renderer.domElement );
 
+            // HemisphereLight
+            let hemisphereLight = new THREE.HemisphereLight(0x606060, 0x404040);
+            this.scene.add(hemisphereLight);
 
-            // AmbientLight
-            let ambient = new THREE.AmbientLight();
-            this.scene.add(ambient);
-            
+            // Clock
+            this.clock = new THREE.Clock();
 
-            // DirectionalLight
-            let light = new THREE.DirectionalLight( 0xffffff, 0.6 );
-            light.position.set(100, 100, 100);
-            light.castShadow = true;
-            light.shadow.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
-            this.scene.add(light);
+            // Statistics
+            this.stats = Stats();
+            document.body.appendChild( this.stats.dom );
 
-            
+            // Working area
+            this.raycaster = new THREE.Raycaster();
+            this.workingMatrix = new THREE.Matrix4();
+            this.workingVector = new THREE.Vector3();
+
             // OnResize
-            window.addEventListener( 'resize', this.onResize.bind(this), false);
+            window.addEventListener('resize', this.onResize.bind(this), false);
 
             // setAnimationLoop
-            this.renderer.setAnimationLoop( this.update.bind(this) );
+            this.renderer.setAnimationLoop(this.update.bind(this));
         }
 
         private update() {
