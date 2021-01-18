@@ -1,3 +1,7 @@
+/**
+ * @author Thomas Hollevoet
+ */
+
 import * as THREE from '../node_modules/three/src/Three';
 import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader';
 import { Util } from './util';

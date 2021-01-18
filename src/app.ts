@@ -1,3 +1,7 @@
+/**
+ * @author Thomas Hollevoet
+ */
+
 import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';

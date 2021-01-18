@@ -1,3 +1,7 @@
+/**
+ * @author Thomas Hollevoet
+ */
+
 import * as THREE from '../node_modules/three/src/Three';
 import { Asteroid } from './asteroid';
 
