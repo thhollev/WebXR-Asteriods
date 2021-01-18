@@ -6,12 +6,12 @@ import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
+import { GameState } from './gamestate';
 import { Sky } from './sky';
 import { Earth } from './earth';    
 import { AsteroidGroup } from './asteroidgroup';
 import { GameSound } from './gamesound';
   
-
 
 class App {
     private scene: THREE.Scene
@@ -25,12 +25,19 @@ class App {
         private workingVector: THREE.Vector3
         private prevTime: number
 
+        public gameState: GameState
+        public score: number
+        public lifesLost: number
+        public gameOver: number
         public earth: Earth
         public asteroidGroup: AsteroidGroup
         public gameSound: GameSound
 
         
         constructor() {
+            // Start loading the game
+            this.gameState = GameState.LOADING
+
             // Scene
             this.scene = new THREE.Scene();
 
@@ -69,6 +76,11 @@ class App {
             this.workingMatrix = new THREE.Matrix4();
             this.workingVector = new THREE.Vector3();
 
+            // Initial game values
+            this.gameOver = 20;
+            this.lifesLost = 0;
+            this.score = 0;
+
             // Sounds
             this.gameSound = new GameSound();
 
@@ -83,6 +95,10 @@ class App {
 
             // setAnimationLoop
             this.renderer.setAnimationLoop(this.update.bind(this));
+
+            // Game ready to play
+            this.gameState = GameState.READY
+            this.gameState = GameState.PLAYING
         }
 
         private initScene() {
@@ -107,6 +123,8 @@ class App {
             document.body.appendChild(vrButton);
 
             let controller = this.renderer.xr.getController(0);
+
+            this.renderer.xr.isPresenting
         }
 
         private handleCameraMovement() {
@@ -119,6 +137,7 @@ class App {
             
             intersects.forEach(i => {
                 this.gameSound.fire();
+                this.score++;
                 let asteroid = i.object.parent.parent.parent.parent.parent.parent;
                 this.asteroidGroup.remove(asteroid);
             });    
@@ -126,9 +145,15 @@ class App {
 
         private update() {
             this.stats.update();
+            // Rotate the earth
             this.earth.update();
            
-            if(this.renderer.xr.getSession()) { 
+            if(this.renderer.xr.getSession() && this.gameState !== GameState.ENDED) {
+
+                if(this.lifesLost >= this.gameOver) {
+                    this.gameState = GameState.ENDED;
+                }
+
                 let xr = this.renderer.xr.getCamera(this.camera); 
                 let delta = this.clock.getElapsedTime() - this.prevTime;
 

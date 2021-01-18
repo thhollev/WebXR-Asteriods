@@ -5,6 +5,7 @@
 import * as THREE from '../node_modules/three/src/Three';
 import { Asteroid } from './asteroid';
 import { App } from './app';
+import { GameState } from './gamestate';
 
 export class AsteroidGroup extends THREE.Group {
     private app: App
@@ -50,9 +51,15 @@ export class AsteroidGroup extends THREE.Group {
             let distance = child.position.distanceTo(camera.position);
 
             if(distance < this.allowedDistance) {
-                this.remove(child);
                 this.app.gameSound.explosion();
+                this.remove(child);
+                this.app.lifesLost++;
             }
+
+            if(this.app.gameState === GameState.ENDED) {
+                this.app.gameSound.lost();
+                this.app.asteroidGroup.clear();
+            }    
         });
     }
 
