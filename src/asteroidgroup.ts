@@ -4,15 +4,18 @@
 
 import * as THREE from '../node_modules/three/src/Three';
 import { Asteroid } from './asteroid';
+import { App } from './app';
 
 export class AsteroidGroup extends THREE.Group {
+    private app: App
     public allowedDistance: number;
     public rotationIncrement: number;
     public speed: number;
     public speedIncrement: number;
 
-    constructor() {
+    constructor(app: App) {
         super();
+        this.app =  app;
 
         this.allowedDistance = 0.5;
         this.rotationIncrement = 0.01;
@@ -48,6 +51,7 @@ export class AsteroidGroup extends THREE.Group {
 
             if(distance < this.allowedDistance) {
                 this.remove(child);
+                this.app.gameSound.explosion();
             }
         });
     }

@@ -9,6 +9,9 @@ import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
 import { Earth } from './earth';    
 import { AsteroidGroup } from './asteroidgroup';
+import { GameSound } from './gamesound';
+  
+
 
 class App {
     private scene: THREE.Scene
@@ -24,6 +27,7 @@ class App {
 
         public earth: Earth
         public asteroidGroup: AsteroidGroup
+        public gameSound: GameSound
 
         
         constructor() {
@@ -65,6 +69,9 @@ class App {
             this.workingMatrix = new THREE.Matrix4();
             this.workingVector = new THREE.Vector3();
 
+            // Sounds
+            this.gameSound = new GameSound();
+
             // Initialize scene
             this.initScene();
 
@@ -87,7 +94,7 @@ class App {
             this.scene.add(this.earth);
 
             // Asteroid Group
-            this.asteroidGroup = new AsteroidGroup();
+            this.asteroidGroup = new AsteroidGroup(this);
             this.scene.add(this.asteroidGroup);
         }
 
@@ -111,6 +118,7 @@ class App {
             let intersects = this.raycaster.intersectObjects(this.asteroidGroup.children, true);
             
             intersects.forEach(i => {
+                this.gameSound.fire();
                 let asteroid = i.object.parent.parent.parent.parent.parent.parent;
                 this.asteroidGroup.remove(asteroid);
             });    
