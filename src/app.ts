@@ -4,6 +4,7 @@
 
 import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
+import { PointerLockControls } from '../node_modules/three/examples/jsm/controls/PointerLockControls';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
 import { Earth } from './earth';    
@@ -14,6 +15,7 @@ class App {
         private camera: THREE.Camera
         private renderer: THREE.WebGLRenderer
         private stats: Stats
+        private controls: PointerLockControls
         private clock: THREE.Clock
         private raycaster: THREE.Raycaster
         private workingMatrix: THREE.Matrix4
@@ -30,7 +32,7 @@ class App {
 
             // Camera
             this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
-            this.camera.position.set( 0, 1.6, 3 );
+            this.camera.position.set( 0, 1.6, 0 );
 
             // Renderer
             this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
@@ -47,6 +49,12 @@ class App {
             // Clock
             this.clock = new THREE.Clock();
             this.prevTime = 0;
+
+            // Controls           
+            this.controls = new PointerLockControls(this.camera, this.renderer.domElement);
+            window.addEventListener('click', () => {
+                this.controls.lock();
+            });
 
             // Statistics
             this.stats = Stats();

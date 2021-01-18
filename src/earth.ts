@@ -16,7 +16,7 @@ export class Earth extends THREE.Mesh {
         material.bumpMap = new THREE.TextureLoader().load('assets/img/earthBump.jpg');
         material.bumpScale = 0.05;
 
-        material.specularMap = new THREE.TextureLoader().load('assets/img/eartSpec');
+        material.specularMap = new THREE.TextureLoader().load('assets/img/earthSpec.jpg');
         material.specular  = new THREE.Color('grey')
 
         super(geometry, material);
