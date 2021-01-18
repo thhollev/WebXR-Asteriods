@@ -2,7 +2,7 @@ import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
-import { Asteroid, AsteroidGroup } from './asteroid';
+import { AsteroidGroup } from './asteroidgroup';
 
 class App {
     private scene: THREE.Scene
@@ -82,17 +82,34 @@ class App {
             let controller = this.renderer.xr.getController(0);
         }
 
+        private handleCameraMovement() {
+            let xr = this.renderer.xr.getCamera(this.camera);
+            this.workingMatrix.identity().extractRotation( xr.matrixWorld );
+            this.raycaster.ray.origin.setFromMatrixPosition( xr.matrixWorld );
+            this.raycaster.ray.direction.set( 0, 0, -1).applyMatrix4( this.workingMatrix );
+
+            let intersects = this.raycaster.intersectObjects(this.asteroidGroup.children, true);
+            
+            intersects.forEach(i => {
+                let asteroid = i.object.parent.parent.parent.parent.parent.parent;
+                this.asteroidGroup.remove(asteroid);
+            });    
+        }
+
         private update() {
             this.stats.update();
            
-            if(this.renderer.xr.getSession()) {  
+            if(this.renderer.xr.getSession()) { 
+                let xr = this.renderer.xr.getCamera(this.camera); 
                 let delta = this.clock.getElapsedTime() - this.prevTime;
+
                 if(delta > 1) {
                     this.prevTime = this.clock.getElapsedTime();
-                    this.asteroidGroup.createAsteroid();
+                    this.asteroidGroup.updateEachSecond();
                 }
-
-                this.asteroidGroup.moveTowardsCamera(this.renderer.xr.getCamera(this.camera));
+                
+                this.handleCameraMovement();
+                this.asteroidGroup.update(xr);
             }
 
             this.renderer.render(this.scene, this.camera);
