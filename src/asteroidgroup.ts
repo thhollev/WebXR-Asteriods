@@ -13,6 +13,7 @@ export class AsteroidGroup extends THREE.Group {
     public allowedDistance: number;
     public rotationIncrement: number;
     public speed: number;
+    public speedInitial: number;
     public speedIncrement: number;
 
     constructor(gameView: GameView) {
@@ -22,6 +23,7 @@ export class AsteroidGroup extends THREE.Group {
         this.allowedDistance = 0.5;
         this.rotationIncrement = 0.01;
         this.speed = 0.001;
+        this.speedInitial = 0.001;
         this.speedIncrement = 0.00005;
     }
 
@@ -59,7 +61,7 @@ export class AsteroidGroup extends THREE.Group {
 
             if(this.gameView.game.gameState === GameState.ENDED) {
                 this.gameView.game.gameSound.lost();
-                this.gameView.asteroidGroup.clear();
+                this.clear();
             }    
         });
     }

@@ -59,7 +59,7 @@ export class GameView {
         // Controls           
         this.controls = new PointerLockControls(this.camera, this.renderer.domElement);
         window.addEventListener('click', () => {
-            this.controls.lock();
+            //this.controls.lock();
         });
 
         // Statistics
@@ -105,8 +105,18 @@ export class GameView {
         let vrButton = VRButton.createButton(this.renderer);
         document.body.appendChild(vrButton);
 
+        // Click to start the game
         let controller = this.renderer.xr.getController(0);
+        controller.addEventListener('selectstart', e => {
+            if(this.game.gameState === GameState.READY) {
+                this.game.gameState = GameState.PLAYING
+            }
 
+            if(this.game.gameState === GameState.ENDED) {
+                this.game.restart();
+            }
+        });
+       
         this.renderer.xr.isPresenting
     }
 
@@ -128,11 +138,11 @@ export class GameView {
 
     private update() {
         this.stats.update();
+
         // Rotate the earth
         this.earth.update();
         
-        if(this.renderer.xr.getSession() && this.game.gameState !== GameState.ENDED) {
-
+        if(this.renderer.xr.getSession() && this.game.gameState === GameState.PLAYING) {
             if(this.game.lifesLost >= this.game.gameOver) {
                 this.game.gameState = GameState.ENDED;
             }

@@ -34,6 +34,12 @@ export class Game {
 
         // Game ready to play
         this.gameState = GameState.READY
-        this.gameState = GameState.PLAYING
+    }
+
+    public restart(): void {
+        this.lifesLost = 0;
+        this.score = 0;
+        this.gameView.asteroidGroup.speed = this.gameView.asteroidGroup.speedInitial;
+        this.gameState = GameState.PLAYING;
     }
 }
