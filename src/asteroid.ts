@@ -2,11 +2,11 @@
  * @author Thomas Hollevoet
  */
 
-import * as THREE from '../node_modules/three/src/Three';
-import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader';
+import { Object3D } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Util } from './util';
 
-export class Asteroid extends THREE.Object3D {
+export class Asteroid extends Object3D {
    
     constructor() {
         super();

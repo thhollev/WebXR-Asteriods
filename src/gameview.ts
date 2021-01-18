@@ -2,7 +2,7 @@
  * @author Thomas Hollevoet
  */
 
-import * as THREE from 'three';
+import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, Vector3, Matrix4, Clock, HemisphereLight, PCFSoftShadowMap, Raycaster } from 'three';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
@@ -34,26 +34,26 @@ export class GameView {
         this.game = game
 
         // Scene
-        this.scene = new THREE.Scene();
+        this.scene = new Scene();
 
         // Camera
-        this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
+        this.camera = new PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
         this.camera.position.set( 0, 1.6, 0 );
 
         // Renderer
-        this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+        this.renderer = new WebGLRenderer({antialias: true, alpha: true});
         this.renderer.setSize( window.innerWidth, window.innerHeight);
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
+        this.renderer.outputEncoding = sRGBEncoding;
         this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.shadowMap.type = PCFSoftShadowMap;
         document.body.appendChild( this.renderer.domElement );
 
         // HemisphereLight
-        let hemisphereLight = new THREE.HemisphereLight(0x606060, 0x404040);
+        let hemisphereLight = new HemisphereLight(0x606060, 0x404040);
         this.scene.add(hemisphereLight);
 
         // Clock
-        this.clock = new THREE.Clock();
+        this.clock = new Clock();
         this.prevTime = 0;
 
         // Controls           
@@ -67,9 +67,9 @@ export class GameView {
         document.body.appendChild( this.stats.dom );
 
         // Working area
-        this.raycaster = new THREE.Raycaster();
-        this.workingMatrix = new THREE.Matrix4();
-        this.workingVector = new THREE.Vector3();
+        this.raycaster = new Raycaster();
+        this.workingMatrix = new Matrix4();
+        this.workingVector = new Vector3();
 
         // Initialize scene
         this.initScene();

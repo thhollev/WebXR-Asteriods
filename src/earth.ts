@@ -2,22 +2,22 @@
  * @author Thomas Hollevoet
  */
 
-import * as THREE from '../node_modules/three/src/Three';
+import { Mesh, SphereGeometry, MeshPhongMaterial, TextureLoader, Color } from 'three';
 
-export class Earth extends THREE.Mesh {
+export class Earth extends Mesh {
     public rotationSpeed: number;
     
     constructor() {
-        let geometry = new THREE.SphereGeometry(1, 32, 32);
-        let material = new THREE.MeshPhongMaterial();
+        let geometry = new SphereGeometry(1, 32, 32);
+        let material = new MeshPhongMaterial();
 
-        material.map = new THREE.TextureLoader().load('assets/img/earth.jpg');
+        material.map = new TextureLoader().load('assets/img/earth.jpg');
         
-        material.bumpMap = new THREE.TextureLoader().load('assets/img/earthBump.jpg');
+        material.bumpMap = new TextureLoader().load('assets/img/earthBump.jpg');
         material.bumpScale = 0.05;
 
-        material.specularMap = new THREE.TextureLoader().load('assets/img/earthSpec.jpg');
-        material.specular  = new THREE.Color('grey')
+        material.specularMap = new TextureLoader().load('assets/img/earthSpec.jpg');
+        material.specular  = new Color('grey')
 
         super(geometry, material);
 

@@ -2,12 +2,11 @@
  * @author Thomas Hollevoet
  */
 
-import * as THREE from '../node_modules/three/src/Three';
+import { Group } from 'three';
 import { Asteroid } from './asteroid';
-import { GameState } from './gamestate';
 import { GameView } from './gameview';
 
-export class AsteroidGroup extends THREE.Group {
+export class AsteroidGroup extends Group {
     private gameView: GameView
     
     public allowedDistance: number;
@@ -18,7 +17,7 @@ export class AsteroidGroup extends THREE.Group {
 
     constructor(gameView: GameView) {
         super();
-        this.gameView =  gameView;
+        this.gameView = gameView;
 
         this.allowedDistance = 0.5;
         this.rotationIncrement = 0.01;

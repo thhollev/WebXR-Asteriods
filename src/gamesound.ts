@@ -2,7 +2,7 @@
  * @author Thomas Hollevoet
  */
 
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
 
 
 export class GameSound {
