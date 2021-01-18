@@ -6,6 +6,7 @@ import * as THREE from '../node_modules/three/src/Three';
 import Stats from '../node_modules/three/examples/jsm/libs/stats.module';
 import { VRButton } from '../node_modules/three/examples/jsm/webxr/VRButton';
 import { Sky } from './sky';
+import { Earth } from './earth';    
 import { AsteroidGroup } from './asteroidgroup';
 
 class App {
@@ -19,6 +20,9 @@ class App {
         private workingVector: THREE.Vector3
         private prevTime: number
         private asteroidGroup: AsteroidGroup
+
+        public earth: Earth
+        public sky: Sky
         
         constructor() {
             // Scene
@@ -68,7 +72,11 @@ class App {
 
         private initScene() {
             // Create background stars
-            new Sky(this.scene);
+            this.sky = new Sky(this.scene);
+
+            // Create an Earth
+            this.earth = new Earth();
+            this.scene.add(this.earth);
 
             // Asteroid Group
             this.asteroidGroup = new AsteroidGroup();
@@ -102,6 +110,7 @@ class App {
 
         private update() {
             this.stats.update();
+            this.earth.update();
            
             if(this.renderer.xr.getSession()) { 
                 let xr = this.renderer.xr.getCamera(this.camera); 
