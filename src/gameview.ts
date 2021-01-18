@@ -105,19 +105,11 @@ export class GameView {
         let vrButton = VRButton.createButton(this.renderer);
         document.body.appendChild(vrButton);
 
-        // Click to start the game
+        // VR Controller
         let controller = this.renderer.xr.getController(0);
-        controller.addEventListener('selectstart', e => {
-            if(this.game.gameState === GameState.READY) {
-                this.game.gameState = GameState.PLAYING
-            }
-
-            if(this.game.gameState === GameState.ENDED) {
-                this.game.restart();
-            }
-        });
-       
-        this.renderer.xr.isPresenting
+        controller.addEventListener('selectstart', () => {
+            this.game.buttonPressed();
+        });             
     }
 
     private handleCameraMovement() {

@@ -69,4 +69,15 @@ export class Game {
         this.gameSound.lost();
         this.gameView.asteroidGroup.clear();
     }
+
+    // Click to start or restart
+    public buttonPressed(): void {
+        if(this.gameState === GameState.READY) {
+            this.gameState = GameState.PLAYING
+        }
+
+        if(this.gameState === GameState.ENDED) {
+            this.restart();
+        }
+    }
 }
