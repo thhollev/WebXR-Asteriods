@@ -1,5 +1,9 @@
+/**
+ * @author Thomas Hollevoet
+ */
+
 import { Howl, Howler } from 'howler';
-import { TubeBufferGeometry } from 'three';
+
 
 export class GameSound {
     private fireAudio: Howl

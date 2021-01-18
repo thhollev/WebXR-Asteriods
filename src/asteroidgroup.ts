@@ -4,19 +4,20 @@
 
 import * as THREE from '../node_modules/three/src/Three';
 import { Asteroid } from './asteroid';
-import { App } from './app';
 import { GameState } from './gamestate';
+import { GameView } from './gameview';
 
 export class AsteroidGroup extends THREE.Group {
-    private app: App
+    private gameView: GameView
+    
     public allowedDistance: number;
     public rotationIncrement: number;
     public speed: number;
     public speedIncrement: number;
 
-    constructor(app: App) {
+    constructor(gameView: GameView) {
         super();
-        this.app =  app;
+        this.gameView =  gameView;
 
         this.allowedDistance = 0.5;
         this.rotationIncrement = 0.01;
@@ -51,14 +52,14 @@ export class AsteroidGroup extends THREE.Group {
             let distance = child.position.distanceTo(camera.position);
 
             if(distance < this.allowedDistance) {
-                this.app.gameSound.explosion();
+                this.gameView.game.gameSound.explosion();
                 this.remove(child);
-                this.app.lifesLost++;
+                this.gameView.game.lifesLost++;
             }
 
-            if(this.app.gameState === GameState.ENDED) {
-                this.app.gameSound.lost();
-                this.app.asteroidGroup.clear();
+            if(this.gameView.game.gameState === GameState.ENDED) {
+                this.gameView.game.gameSound.lost();
+                this.gameView.asteroidGroup.clear();
             }    
         });
     }
