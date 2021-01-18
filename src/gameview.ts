@@ -121,16 +121,18 @@ export class GameView {
     }
 
     private handleCameraMovement() {
+        // Set raycaster according to the XR camera
         let xr = this.renderer.xr.getCamera(this.camera);
         this.workingMatrix.identity().extractRotation( xr.matrixWorld );
         this.raycaster.ray.origin.setFromMatrixPosition( xr.matrixWorld );
         this.raycaster.ray.direction.set( 0, 0, -1).applyMatrix4( this.workingMatrix );
 
+        // Get intersected objects
         let intersects = this.raycaster.intersectObjects(this.asteroidGroup.children, true);
         
+        // Handle intersections
         intersects.forEach(i => {
-            this.game.gameSound.fire();
-            this.game.score++;
+            this.game.playerScored();
             let asteroid = i.object.parent.parent.parent.parent.parent.parent;
             this.asteroidGroup.remove(asteroid);
         });    
@@ -142,14 +144,14 @@ export class GameView {
         // Rotate the earth
         this.earth.update();
         
+        // The main game loop when playing
         if(this.renderer.xr.getSession() && this.game.gameState === GameState.PLAYING) {
-            if(this.game.lifesLost >= this.game.gameOver) {
-                this.game.gameState = GameState.ENDED;
-            }
+            this.game.checkIfPlayerLost();
 
             let xr = this.renderer.xr.getCamera(this.camera); 
             let delta = this.clock.getElapsedTime() - this.prevTime;
 
+            // Each seccond
             if(delta > 1) {
                 this.prevTime = this.clock.getElapsedTime();
                 this.asteroidGroup.updateEachSecond();

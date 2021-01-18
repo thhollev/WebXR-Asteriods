@@ -54,15 +54,9 @@ export class AsteroidGroup extends THREE.Group {
             let distance = child.position.distanceTo(camera.position);
 
             if(distance < this.allowedDistance) {
-                this.gameView.game.gameSound.explosion();
+                this.gameView.game.playerLostALive();
                 this.remove(child);
-                this.gameView.game.lifesLost++;
             }
-
-            if(this.gameView.game.gameState === GameState.ENDED) {
-                this.gameView.game.gameSound.lost();
-                this.clear();
-            }    
         });
     }
 
