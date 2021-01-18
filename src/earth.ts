@@ -23,7 +23,7 @@ export class Earth extends THREE.Mesh {
 
         this.position.y = 1.6;
         this.position.z = 3;
-        this.rotationSpeed = 0.01;
+        this.rotationSpeed = 0.002;
     }
 
     public update() {

@@ -19,10 +19,10 @@ class App {
         private workingMatrix: THREE.Matrix4
         private workingVector: THREE.Vector3
         private prevTime: number
-        private asteroidGroup: AsteroidGroup
 
         public earth: Earth
-        public sky: Sky
+        public asteroidGroup: AsteroidGroup
+
         
         constructor() {
             // Scene
@@ -72,7 +72,7 @@ class App {
 
         private initScene() {
             // Create background stars
-            this.sky = new Sky(this.scene);
+            this.scene.background = new Sky().loadSky();
 
             // Create an Earth
             this.earth = new Earth();
