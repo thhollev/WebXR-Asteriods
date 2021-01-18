@@ -24,7 +24,7 @@ export class AsteroidGroup extends THREE.Group {
         this.rotationIncrement = 0.01;
         this.speed = 0.001;
         this.speedInitial = 0.001;
-        this.speedIncrement = 0.00005;
+        this.speedIncrement = 0.0005;
     }
 
     private moveTowardsCamera(camera: THREE.Camera) {

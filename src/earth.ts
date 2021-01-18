@@ -26,7 +26,7 @@ export class Earth extends THREE.Mesh {
         this.rotationSpeed = 0.002;
     }
 
-    public update() {
+    public update(): void {
         this.rotation.y += this.rotationSpeed;
     }
 }
