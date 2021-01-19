@@ -112,7 +112,7 @@ export class GameView {
         });             
     }
 
-    private async handleCameraMovement() {
+    private handleCameraMovement() {
         // Set raycaster according to the XR camera
         let xr = this.renderer.xr.getCamera(this.camera);
         this.workingMatrix.identity().extractRotation( xr.matrixWorld );

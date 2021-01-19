@@ -45,6 +45,12 @@ code {
 	font-family: "Source Code Pro";
 	letter-spacing: -.02em;
 	hyphens: none;
+	background-color: #eee;
+}
+
+pre {
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 pre {

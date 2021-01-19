@@ -45,26 +45,26 @@ export class Game {
     }
 
     // An Asteroid is hit
-    public async playerScored(): Promise<void> {
+    public playerScored(): void {
         this.gameSound.fire();
         this.score++;
     }
 
     // An Asteroid was to close
-    public async playerLostALive(): Promise<void> {
+    public playerLostALive(): void {
         this.gameSound.explosion();
         this.lifesLost++;
     }
 
     // Check if the player is lost
-    public async checkIfPlayerLost(): Promise<void> {
+    public checkIfPlayerLost(): void {
         if(this.lifesLost >= this.gameOver) {
             this.playerLost();
         }
     }
 
     // Set the game to ended
-    public async playerLost(): Promise<void> {
+    public playerLost(): void {
         this.gameState = GameState.ENDED;
         this.gameSound.lost();
         this.gameView.asteroidGroup.clear();
