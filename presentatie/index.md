@@ -53,7 +53,7 @@ https://webxr.hollevoet.org/asteroids/documentatie/
 ---
 # Samsung Gear VR
 
-- LineageOS geen Gear VR Services
+- LineageOS heeft geen Gear VR Services
 
 - https://jsyang.ca/hacks/gear-vr-rev-eng/
 
@@ -430,7 +430,7 @@ https://webxr.hollevoet.org/asteroids/tutorial/
 # Improvements
 
  - feedback score, lifesLost
- - kometen ontploffen
+ - kometen ontploffen 
  - aarde wordt aangetast
  - menu
  - FPS Mode
@@ -458,7 +458,7 @@ window.addEventListener('click', () => {
 
 # Takeaways
 
-- WebXR niet alleen huidige maar ook toekomstige
+- toekomst WebXR
 
 - HoloLens
 
