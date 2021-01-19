@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+	<title>Documentatie WebXR Project</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+        <h1>Documentatie WebXR Project</h1>
+        <p class="author">Thomas Hollevoet</p>
+		<p class="course">Web Topics Basics</p>
+		<p class="year">Academiejaar 2020–2021</p>
+	</header>
+	<main>
+
+    <h2>Wat is WebXR?</h2>
+        <p>
+            Wat is nu juist WebXR? Wat zijn de mogelijkheden vandaag wat zal mogelijk zijn in de toekomst? W3C Immersive Web chair, Ada Rose Cannon legt de mogelijkheden vandaag en de verwachtingen voor de toekomst mooi uit.
+        </p>
+        
+        <div class="youtube">
+            <iframe src="https://www.youtube.com/embed/ypSkIYpJjE8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <p>
+            WebXR is dus de combinatie van <em>Virtual Reality</em> en <em>Augmented Reality</em>. De WebXR API is de device API die het toelaat te communiceren met sensoren en schermen van <em>immersive hardware</em>, waaronder dus VR-headsets (Oculus, Vive...) en AR-headsets (HoloLens...). De moeilijkheid van deze webstandaard is dat het niet alleen de huidige hardware en mogelijkheden moet ondersteunen maar ook de toekomstige hardware.
+        </p>
+
+        <p>
+            AR en VR zijn eigenlijk niet zo nieuw een eerste vorm kon je al vinden in 1839 met de <em>View-Master</em>, een manier stereoscopische afbeeldingen te tonen.
+        </p>
+
+        <img src="img/stereoscopic-photo.jpg" />
+
+        <p>
+            Mijn eerte bewuste aanraking met XR is enkele jaren geleden met de Nintendo 3DS. De 3DS had kaartjes die je met de camera kon scannen en er verscheen toen een Nintendo Character op het scherm die leek in de 'echte' wereld aanwezig te zijn.
+        </p>
+
+        <img src="img/3ds.jpg" />
+
+    <h2>Hoe dit nu leren?</h2>
+        <p>
+            Doordat WebXR een relatief nieuwe standaard is, die dus ook nog niet in elke browser wordt ondersteund, heeft deze voorlopig een kleine community waar je terecht kan. Op YouTube bestaan er 'tutorials' en uitleg videos maar deze zijn zeer beperkt! De community wordt wel elke dag groter met ervaren mensen die voorbeeld van UnityXR mogelijkheden overkomen naar WebXR om hierin mee verder dit standaard te ontwikkelen.
+        </p>
+
+        <h3>Documentatie</h3>
+            <p>
+                De officiële documentatie kan je op <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API">developer.mozilla.org</a> vinden. Twee leuke sites waar er veel uit te leren valt is mozilla's <a href="https://mixedreality.mozilla.org/">mixedreality</a> site en de <a href="https://immersiveweb.dev/">immersive web</a> site.
+            </p>
+
+        <h3>Libraries</h3>
+            <p>
+                WebXR gebruikt de WebGL API, deze is redelijk low-level waardoor er vaak een library gebruikt wordt. Enkele libraries zijn <a href="https://threejs.org/">ThreeJS</a>, <a href="https://aframe.io/">AFrame</a>, <a href="https://www.babylonjs.com/">BabylonJS</a>... Deze hebben ingebouwde 3D en XR functionaliteiten die het toelaat om relatief snel een XR applicatie te bouwen.
+            </p>
+
+        <h3>Udemy</h3>
+            <p>
+                In het vak Web Topics Basics, werd gekozen voor ThreeJS. Op Udemy kan je een zeer goede cursus volgen die de basics aanleert <a href="https://www.udemy.com/course/hands-on-threejs-3d-web-visualisations/">Hands on ThreeJS 3D web visualisations</a>. Verder heb ik me nog verdiept met <a href="https://www.udemy.com/course/threejs-tutorials/">Three.js and TypeScript</a> en nog specifieke WebXR cursussen <a href="https://www.udemy.com/course/learn-webxr/">Learn to create WebXR, VR and AR, experiences using Three.JS</a> en <a href="https://www.udemy.com/course/learn-a-frame-and-get-ready-for-webvr/">Learn A-Frame And Get Ready For WebVR </a>.
+            </p>
+
+    <h2>WebXR Leergroep</h2>
+        <p>
+            Voor de Leergroep van Web Topics Basics heb ik een Augmented Reality meetlint gemaakt. De code is beschikbaar op <a href="https://git.ikdoeict.be/thomas.hollevoet/webar-tape-measure">gitlab</a>. Je kan een live versie ervan vinden op <a href="https://webxr.hollevoet.org/tapemeasure">webxr.hollevoet.org/tapemeasure</a>.
+        </p>
+
+        <h3>Ontwikkelingsprocess</h3>
+            <p>
+                WebXR werkt alleen over https, hier wordt wel een uitzondering gemaakt wanneer je de <a href="https://chrome.google.com/webstore/detail/webxr-api-emulator/mjddjgeghkdijejnciaefnkjmkafnnje">WebXR API Emulator</a> gebruikt in Chrome. Dit wil dus zeggen dat om het te kunnen testen op mijn smartphone ik steeds een live versie moest publishen want de mobiele browser die ik gebruik heeft deze addon niet.
+            </p>
+
+            <img src="img/webxremulator.png" />
+
+            <p>
+                De WebXR Emulator heeft wel een AR emulatie maar deze is niet volledig waardoor ik dit alleen kon testen op mijn smartphone. Verder was het debuggen een nachtmerrie! Tijdens het gebruiken van de applicatie had ik geen console of debug window waar ik mogelijkse fouten kon zien en opsporen. Dit project -- lees werkgroep presentatie -- heeft dus immens veel tijd in beslag genomen om goed tot stand te brengen. Een positieve takeaway was dan wel weer door zeer aandachtig code te schrijven hiervoor, heb ik nu wel een stevige kennis rond de werking van ThreeJS en WebXR.
+            </p>
+
+            <p>
+                <b>NOTE</b> Ik heb ondertussen <a href="https://developers.google.com/web/tools/chrome-devtools/remote-debugging/">Chrome's remote debugging</a> werkende gekregen waardoor ik in de toekomst gemakkelijker AR applicaties kan schrijven. Had ik dit maar gevonden voor het schrijven van de tape measure applicatie.
+            </p>
+
+    <h2>WebXR Project</h2>
+        <p>
+            Voor het project wou ik de andere kant van XR eens bekijken, namelijk VR. Het probleem was namelijk ik heb geen VR-headset, er konden verschillende modellen geleend worden van het school maar <b>Corona</b>. Om voor dit project derict een investering te doen in een volledige 6DOF setup was geen optie, wat kon ik dan nog doen van project? Gelukkig kwam ik de <a href="https://www.samsung.com/global/galaxy/gear-vr/">Sasmung Gear VR</a> tegen, dit is een 3DOF bril waar een smartphone kan ingeschoven worden zoals de <a href="https://arvr.google.com/cardboard/">Google Cardboard</a> maar met het verschil dat er een controller bij is die ook de nodige tracking heeft.
+        </p>
+
+        <h3>Gear VR</h3>
+            <p>
+                Normaal is het installatie process van de Gear VR zeer voor de hand liggend, je steekt je smartphone in de bril en de setup begint automatisch. Nu is het zo dat ik een Samsung S6 Edge heb die al enkele jaren sterk meegaat, dit success is te danken aan <a href="https://lineageos.org/">LineageOS</a>. Eeen open-source versie van Android zonder al de rommel die Smarphone producenten in hun variant van Android steken. Het probleem doet zich nu voort dat de <em>Samsung Gear VR services</em> en <em>Samsung Gear VR app</em> ingebouwd zitten in Samsung's versie van android en deze zijn niet beschikbaar in de Play Store. Online zijn er wel bijvoorbeeld op <a href="https://www.xda-developers.com/">xda-developers</a> apk's te vinden maar deze heb ik niet werkende gekregen.
+            </p>
+
+            <img src="img/gearvr.png" />
+
+            <p>
+                Hoe kon ik dan deze controller werkende krijgen? Het meeste werk is namelijk al gebeurd het volledig <a href="https://jsyang.ca/hacks/gear-vr-rev-eng/">Reverse Engineering process</a> is volbracht in 2018. Op <a href="https://github.com/rdady/gear-vr-controller-linux">gitbub</a> vond ik deze repo die het mogelijk maakt om deze controller te gebruiken als een web remote. Maar ik heb het dus nooit werkende gekregen met mijn smartphone voor gebruik met WebXR.
+            </p>
+
+            <h3>Project Asteroids</h2>
+                <p>
+                    Ik was dus gelimiteerd in wat ik juist kon doen in dit project. Een applicate waarbij een 3DOF bril met smartphone kan gebruikt worden zonder enige controllers. Interactie met objecten kan gebeuren door ernaar te kijken voor een bepaalde tijd, of door op het moment van kijken naar een object een select event te lanceren. Dit kan gebeuren door op het scherm te klikken, of de knoppen van de bril te gebruiken.
+                </p>
+
+                <p>
+                    Wanneer we te grootschalig gaan denken bijvoorbeeld een project waar je rond kan lopen in een grote open wereld, of waar te veel meshses zijn die moeten gerenderd worden kan ook niet want we willen graag 60FPS op een mobiel device. Uiteindelijk kwam ik op het volgende spelidee.
+                </p>
+
+                <hr>
+                <blockquote>
+                    Je bent de uitverkorene op deze aarde, jouw taak is om ons te redden! Met jouw laserogen moet je de kometen die naar de aarde komen vernietigen! Kan jij ons redden? Word jij onze nieuwe superheld? Red ons nu!
+                </blockquote>
+                <hr>
+            
+            <h3>Ontwikkelingsprocess</h3>
+                <p>
+                    Ik heb ervoor gekozen om dit project volledig in TypeScript te schrijven met ThreeJS als 3D library. Dit is een eerste project waar ik m'n kennis van TypeScript kan gebruiken om de Javascript frustraties die ik vaak heb, waaronder bijvoorbeeld <code>const self = this;</code> om een reference te houden naar het object. TypeScript is ontwikkeld door Microsoft dus de integratie met het .NET platform is zeer gemakkelijk. Ik volgde nu ook C# Object Oriented Programming (waar ik een TaflGame Engine heb gemaakt, zeer interessant!) wat ervoor zorgt dat de syntax van C# zeer gelijkend is op TS.
+                </p>
+
+                <p>
+                    voor de Audio van het spel heb ik gebruik gemaakt van <a href="https://howlerjs.com/">Howler</a>, een krachtige toolset om Audio, maar dus ook Spatial Audio af te spelen in browers.
+                </p>
+
+                <p>
+                    Verdere implementatie en uitleg hoe alles juist werkt kan gevonden worden in de <a href="../tutorial/">tutorial</a>. Heel het project is beschikbaar op <a href="https://git.ikdoeict.be/thomas.hollevoet/webxr-asteroids">gitlab</a>. 
+                </p>
+    
+    <h2>Besluit</h2>
+        <p>
+            Toen ik in oktober het voorstel van Davy De Winne kreeg om Web Topics Basics te volgen, was ik zeer enthousiast! Al had ik toen al vijf jaar ervaring van het ontwikkelen van web applicaties, toch had ik nog nooit gehoord van WebXR en had ik nog nooit met 3D on web gewerkt. Ongeveer drie maanden later en ik heb een grondige kennis van ThreeJS, wat zeker nog in de toekomst zal van pas komen en heb ik mijn eerste VR en AR applicatie geschreven.
+        </p>
+
+        <p>
+            Dit klinkt allemaal zeer mooi, maar eigenlijk ben ik nog maar aan het topje van de ijsberg. Ik heb nog niet met een 6DOF VR bril met controllers gewerkt. De performance van een VR ervaring op een Desktop implaats van mobiel ervaren. Ik heb nog niet met een HoloLens gewerkt. Ooit gedacht dat <a href="https://www.vrt.be/vrtnws/nl/2019/01/30/primeur-chirurg-opereert-scheefgegroeide-teen-met-augmented-rea/">dit</a> ging gebeuren, <em>Chirurg opereert met augmented reality bril</em>?
+        </p>
+
+        <p>
+            Wanneer we de kracht van WebXR gaan combineren met een progressive web app, stappen we stilaan weg van de ecosystemen die alle XR producenten hebben opgebouwd voor hun eigen device. Zo gaan we naar een wereld waar XR zeer toegankelijk is door gewoonweg een browser.
+        </p>
+
+
+    </main>
+    
+    <!-- Allow scrolling past the end -->
+    <div style="height: 500px;"></div>
+</body>
+</html>
