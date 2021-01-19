@@ -6,9 +6,13 @@ WebXR Project voor Web Topics Basics
 
 [https://webxr.hollevoet.org/asteroids/](https://webxr.hollevoet.org/asteroids/)
 
-## Documentatie proces
+## Documentatieproces
 [https://webxr.hollevoet.org/asteroids/documentatie/](https://webxr.hollevoet.org/asteroids/documentatie/)
 
 ## Tutorial
 
 [https://webxr.hollevoet.org/asteroids/tutorial/](https://webxr.hollevoet.org/asteroids/tutorial/)
+
+## Presentatie
+
+[https://webxr.hollevoet.org/asteroids/presentatie/](https://webxr.hollevoet.org/asteroids/presentatie/)

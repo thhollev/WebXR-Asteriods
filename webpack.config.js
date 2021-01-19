@@ -16,6 +16,7 @@ module.exports = {
                 { from: "assets", to: "assets" },
                 { from: "documentatie", to: "documentatie"},
                 { from: "tutorial", to: "tutorial"},
+                { from: "presentatie", to: "presentatie"},
             ]
         }),
     ],
