@@ -26,11 +26,11 @@
 
     <h2>Opzet</h2>
         <p>
-            <b>NOTE</b> Dit project is geschreven in TypeScript, om deze tutorial te kunnen volgen is het niet noodzakelijk om TypeScript te kennen maar dit is toch aangeraden.
+            <b>NOTE</b> Dit project is geschreven in TypeScript. Om deze tutorial te kunnen volgen is het niet noodzakelijk om TypeScript te kennen maar dit is toch aangeraden.
         </p>
 
         <p>
-            Om een leeg project te initialiseren gaan we <code>npm init</code> uitvoeren. Dit zal een package.json aanmaken in de huidige map. Verder willen we een paar dependencies installeren dit kan met <code>yarn add @types/howler clean-webpack-plugin copy-webpack-plugin css-loader howler html-loader html-webpack-plugin style-loader three ts-loader typescript webpack webpack-cli</code>
+            Om een leeg project te initialiseren gaan we <code>npm init</code> uitvoeren. Dit zal een package.json aanmaken in de huidige map. Verder willen we een paar dependencies installeren, dit kan met <code>yarn add @types/howler clean-webpack-plugin copy-webpack-plugin css-loader howler html-loader html-webpack-plugin style-loader three ts-loader typescript webpack webpack-cli</code>
         </p>
 
         <p>
@@ -96,7 +96,7 @@ module.exports = {
 </code></pre>
 
     <p>
-        We zien dat de entry tot onze app <em>src/app.ts</em> is, maak deze aan. WebPack zal de app als startpunt nemen om onze applicatie te bundelen en dan de assets te injecteren in een html bestand. Maak een <em>index.html</em> aan met de volgende inhoud.
+        We zien dat de entry tot onze app <em>src/app.ts</em> is, maak deze aan. WebPack zal de app als startpunt nemen om onze applicatie te bundelen en dan de assets te injecteren in een html-bestand. Maak een <em>index.html</em> aan met de volgende inhoud.
     </p>
 
 <pre><code>&#x3C;!DOCTYPE html&#x3E;
@@ -121,7 +121,7 @@ module.exports = {
 </code></pre>
 
     <p>
-        Het enigste die we nu nog nodig hebben om webpack te laten builden is onze TypeScript configuratie. Creeër <em>src/tsconfig.json</em>
+        Het enige wat we nu nog nodig hebben om webpack te laten builden, is onze TypeScript-configuratie. Creeër <em>src/tsconfig.json</em>
     </p>
 
 <pre><code>{
@@ -137,7 +137,7 @@ module.exports = {
 </code></pre>
 
     <p>
-        We kunnen nu twee scripts toevoegen in onze package.json, die kan gebruikt worden om in development en production te builden.
+        We kunnen nu twee scripts toevoegen in onze package.json, die kunnen gebruikt worden om in development en production te builden.
     </p>
 
 <pre><code>"scripts": {
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 </code></pre>
 
     <p>
-        We gaan dus een Game maken. Deze heeft een status nodig, <code>GameState</code> om te weten wat er juist aan het gebeuren is. We hebben een veld nodig waar we de score kunnen bijhouden. Een lifesLost die bijhoudt hoeveel keer we geraakt zijn door een komeet en een gameOver die de limiet is van hoeveel keer we mogen geraakt worden voor dat we 'dood' gaan. Verder hebben we nog onze GameView, dit komt later. En onze GameSound die het afspelen van geluid zal regelen.
+        We gaan dus een spel maken. Deze heeft een status nodig, <code>GameState</code> om te weten wat er juist aan het gebeuren is. We hebben een veld nodig waar we de score kunnen bijhouden. Een lifesLost die bijhoudt hoeveel keer we geraakt zijn door een komeet en een gameOver die de limiet is hoeveel keer we mogen geraakt worden voor dat we 'dood' gaan. Verder hebben we nog onze GameView, dit komt later. En onze GameSound die het afspelen van geluid zal regelen.
     </p>
 
 <pre><code>import { GameState } from './gamestate';  
@@ -198,7 +198,7 @@ export class Game {
 
     <h3>GameState</h3>
     <p>
-        Laten we eerst eens dieper ingaan op <code>GameState</code> en <code>GameSound</code>. GameState is een enum die de volgende waarden kan hebben. <em>LOADING</em> dit is de initiële waarde die het spel krijgt, dit wil gewoon aan iedereen duidelijk maken dat we nog niet klaar zijn om te beginnen spelen. Als tweede hebben we om duidelijk te maken dat het spel geladen is, en we dus klaar zijn om te spelen <em>READY</em>. Nu kan het spel gestart worden, wanneer dit gebeurd zetten we het op <em>PLAYING</em>. Per Tick in het spel zal er dus logic nodig zijn om na te gaan of het spel gedaan is, we hebben dus als laatste <em>ENDED</em> nodig.  
+        Laten we eerst eens dieper ingaan op <code>GameState</code> en <code>GameSound</code>. GameState is een enum die de volgende waarden kan hebben. <em>LOADING</em> dit is de initiële waarde die het spel krijgt, dit wil gewoon aan iedereen duidelijk maken dat we nog niet klaar zijn om te beginnen spelen. Als tweede hebben we om duidelijk te maken dat het spel geladen is, en we dus klaar zijn om te spelen <em>READY</em>. Nu kan het spel gestart worden. Wanneer dit gebeurt, zetten we het op <em>PLAYING</em>. Per Tick in het spel zal er dus logic nodig zijn om na te gaan of het spel gedaan is, we hebben dus als laatste <em>ENDED</em> nodig.  
     </p>
 
 <pre><code>export enum GameState {
@@ -261,7 +261,7 @@ export class GameSound {
 
     <h3>Logic</h3>
     <p>
-        Nu het spel een status heeft en geluid kan afspelen laten we de logic toevoegen in Game. Een eerste methode is <code>playerScored</code> dit zal de score van de speler eentje hoger zetten en het correcte geluidseffect afspelen. <code>playerLostALive</code> spreekt voor zich, dit zal het aantal verloren levens eentje omhoog zetten en het correcte geluidseffect afspelen. We hebben nu logica nodig om te weten wanneer een speler verloren is <code>checkIfPlayerLost</code> zal gewoon nagaan of de <code>lifesLost</code> niet groter is dan het aantal levens, indien dit zo is zal <code>playerLost</code> worden opgeroepen. Dit zal de status op <em>ENDED</em> zetten en de huidige rond zwevende kometen verwijderen uit de scene (dit wordt meer duidelijk wanneer we GameView hebben gezien). Nu het spel afgelopen is hebben we een methode nodig die het spel kan herstarten <code>restart</code>. Dit zal alle initiële waarden terugzetten en het weer mogelijk maken om opnieuw te beginnen spelen. Verder hebben we nog als laatste een <code>buttonPressed</code> handler nodig die wanneer het spel <em>READY</em> is het op <em>PLAYING</em> zet en wanneer het spel <em>ENDED</em> is het opnieuw start.
+        Nu het spel een status heeft en geluid kan afspelen laten we de logic toevoegen in Game. Een eerste methode is <code>playerScored</code>. Dit zal de score van de speler eentje hoger zetten en het correcte geluidseffect afspelen. <code>playerLostALive</code> spreekt voor zich, dit zal het aantal verloren levens eentje omhoog zetten en het correcte geluidseffect afspelen. We hebben nu logica nodig om te weten wanneer een speler verloren is. <code>checkIfPlayerLost</code> zal gewoon nagaan of de <code>lifesLost</code> niet groter is dan het aantal levens, indien dit zo is zal <code>playerLost</code> worden opgeroepen. Dit zal de status op <em>ENDED</em> zetten en de huidige rond zwevende kometen verwijderen uit de scene (dit wordt meer duidelijk wanneer we GameView hebben gezien). Nu het spel afgelopen is, hebben we een methode nodig die het spel kan herstarten <code>restart</code>. Dit zal alle initiële waarden terugzetten en het weer mogelijk maken om opnieuw te beginnen spelen. Verder hebben we nog als laatste een <code>buttonPressed</code> handler nodig die wanneer het spel <em>READY</em> is het op <em>PLAYING</em> zet en wanneer het spel <em>ENDED</em> is het opnieuw start.
     </p>
 
 <pre><code>// Set all values back to initial state
@@ -315,7 +315,7 @@ public buttonPressed(): void {
             <b>NOTE</b> Een lichte voorkennis van ThreeJS kan handig zijn maar is niet vereist!
         </p>
         <p>
-            Wanneer we GameView initialiseren gaan we een basic 3D ThreeJS Environment opzetten. We gaan een scene gaan aanmaken waar we objecten kunnen aan toevoegen die dan moeten gerenderd worden. Daarvoor hebben we dus onze renderer nodig die de scene zal gaan renderen en gaat tonen in de DOM. Natuurlijk willen we iets zien in de scene, objecten moeten op een bepaalde manier verlicht worden, als het in onze 'echte' wereld nacht is, is het buiten donker want er is gaan zon. Laten we licht toevoegen in de vorm van een <code>HemisphereLight</code> wat ervoor zorgt dat alles verlicht is maar niet bijvoorbeeld van uit een bepaalde hoek die schaduwen werpt. Verder hebben we nog een <code>Clock</code> nodig die het mogelijk maakt om straks in de update methode te kijken hoeveel tijd gepasseerd is tussen twee Ticks. En we voegen ook nog een Stats window waar we kunnen zien hoe performant het spel juist is. Om te kunnen intraheren in de wereld hebben we een <code>Raycaster</code> nodig, deze heeft de locatie van waar we ons bevinden nodig vandaar dat we ook nog een <em>workingMatrix</em> en een <em>workingVector</em> gaan bijhouden. Nu dit allemaal klaar is kunnen we onze scene gaan initialiseren, namelijk objecten toevoegen en onze VR wereld gaan opzetten.
+            Wanneer we GameView initialiseren gaan we een basic 3D ThreeJS Environment opzetten. We gaan een scene gaan aanmaken waar we objecten kunnen aan toevoegen die dan moeten gerenderd worden. Daarvoor hebben we dus onze renderer nodig die de scene zal gaan renderen en gaat tonen in de DOM. Natuurlijk willen we iets zien in de scene: objecten moeten op een bepaalde manier verlicht worden, als het in onze 'echte' wereld nacht is, is het buiten donker want er is geen zon. Laten we licht toevoegen in de vorm van een <code>HemisphereLight</code>. Dit zorgt ervoor dat alles verlicht is, maar niet bijvoorbeeld vanuit een bepaalde hoek die schaduwen werpt. Verder hebben we nog een <code>Clock</code> nodig die het mogelijk maakt om straks in de updatemethode te kijken hoeveel tijd gepasseerd is tussen twee Ticks. We voegen ook nog een Stats window toe, waarin we kunnen zien hoe performant het spel juist is. Om te kunnen intraheren in de wereld hebben we een <code>Raycaster</code> nodig, deze heeft de locatie van waar we ons bevinden nodig. Vandaar dat we ook nog een <em>workingMatrix</em> en een <em>workingVector</em> gaan bijhouden. Nu dit allemaal klaar is, kunnen we onze scene gaan initialiseren, namelijk objecten toevoegen en onze VR-wereld gaan opzetten.
         </p>
 
 <pre><code>import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, Vector3, Matrix4, Clock, HemisphereLight, PCFSoftShadowMap, Raycaster } from 'three';
@@ -402,7 +402,7 @@ export class GameView {
 
         <h3>GameView.initScene</h3>
         <p>
-            Wanneer we onze wereld gaan initialiseren gaat het volgende gebeuren. We gaan een sterrenhemel gaan maken waar je in rond kan kijken. We gaan onze aarde toevoegen, dit is wereld die je moet beschermen. En we gaan een kometen groep aanmaken waar we straks kometen kunnen aan toevoegen.
+            Wanneer we onze wereld initialiseren, gebeurt het volgende. We maken een sterrenhemel waar je in rond kan kijken. We voegen onze aarde toe, dit is wereld die je moet beschermen. En we maken een kometengroep aan, waar we straks kometen kunnen aan toevoegen.
         </p>
 
 <pre><code>private initScene() {
@@ -420,7 +420,7 @@ export class GameView {
 </code></pre>
 
         <h3>Sky</h3>
-        <p>Om de sterren te creeëren gaan we 6 foto's gaan inladen en deze als achtergrond gaan zetten voor elke directie: links, rechts, voor, achter, boven en onder. Gelukkig heeft ThreeJS een CubeTexture die net doet wat we willen</p>
+        <p>Om de sterren te creeëren willen we zes foto's gaan inladen om deze als achtergrond te zetten voor elke richting: links, rechts, voor, achter, boven en onder. Gelukkig heeft ThreeJS een CubeTexture die net doet wat we willen.</p>
 <pre><code>import { CubeTextureLoader, CubeTexture } from 'three';
 
 export class Sky extends CubeTextureLoader{
@@ -437,7 +437,7 @@ export class Sky extends CubeTextureLoader{
 
         <h3>Earth</h3>
         <p>
-            Om onze aarde te maken hebben we dus een bol nodig waar we ook opnieuw een foto zullen op plaatsen. We kunnen een <code>SphereGeometry</code> aanmaken die dus een ronde bol zal voorstellen. We hebben ook nog onze materiaal nodig waaruit deze bol is gamaakt. Als we een <code>MeshPhongMaterial</code> aanmaken kunnen we hier een map op plaatsen die een extra bumpMap en specularMap ook heeft. Dit zorgt ervoor dat het oppervlak van de aarde niet er 'plat' uitziet. Verder hebben we nog één methode <code>update</code> die elke Tick de aarde laat rond draaien, de snelheid staat vast in <code>rotationSpeed</code>.
+            Om onze aarde te maken hebben we dus een bol nodig waar we ook opnieuw een foto zullen op plaatsen. We kunnen een <code>SphereGeometry</code> aanmaken die dus een ronde bol zal voorstellen. We hebben ook nog het materiaal nodig waaruit deze bol is gemaakt. Als we een <code>MeshPhongMaterial</code> aanmaken, kunnen we hier een map op plaatsen die een extra bumpMap en specularMap ook heeft. Dit zorgt ervoor dat het oppervlak van de aarde niet er 'plat' uitziet. Verder hebben we nog één methode <code>update</code> die elke Tick de aarde laat rond draaien, de snelheid staat vast in <code>rotationSpeed</code>.
          </p>
 
 <pre><code>import { Mesh, SphereGeometry, MeshPhongMaterial, TextureLoader, Color } from 'three';
@@ -472,7 +472,7 @@ export class Earth extends Mesh {
 
         <h3>Asteroid</h3>
         <p>
-            We hebben nu onze sterren, onze aarde maar we willen nu onze projectielen, kometen, die op ons afkomen. Ik heb alvast een 3D object gamaakt die beschikbaar is in een .obj betsand. Dit kunnen we inlaaden met de GLTFLoader van ThreeJS. Wanneer we een komeet inladen gaan we deze gaan toevoegen aan de groep van kometen en we geven we deze een 'random' positie. Dit natuurlijk binnnen een gedefiniëerde viewport.
+            We hebben nu de sterren en de aarde maar we willen nu de projectielen, kometen, die op ons afkomen. Ik heb alvast een 3D-object gemaakt die beschikbaar is in een .obj bestand. Dit kunnen we inladen met de GLTFLoader van ThreeJS. Wanneer we een komeet inladen, kunnen we deze toevoegen aan de groep van kometen waar we deze een willekeurige positie geven. Dit natuurlijk binnnen een gedefiniëerde viewport.
         </p>
 
 <pre><code>import { Object3D } from 'three';
@@ -513,7 +513,7 @@ export class Util {
 
         <h3>AsteroidGroup</h3>
         <p>
-            De AsteroidGroup is dus de groep waar alle kometen inzitten en dit zal ze ook 'managen'. We hebben als eerste een methode <code>moveTowardsCamera</code> die elke komeet iedere Tick een beetje dichter naar de speler brengt. De snelheid waarmee dit gebeurd wordt bijgehouden in <code>speed</code>. We verder nog een methode <code>createAsteroid</code> die een nieuwe komeet toevoegd aan de groep. <code>checkIfAsteroidToClose</code> staat in om te kijken of een komeet tegen de speler is gevlogen, deze bound is gedefiniëerd in <code>allowedDistance</code>. Wanneer een komeet te dicht is zal dan ook <code>Game.playerLostALive</code> opgeroepen worden. Verder hebben we een methode die elke seconde één komeet zal aanmaken en de snelheid waarmee de kometen naar de speler toe vliegt zal verhogen met <code>speedIncrement</code>.
+            De AsteroidGroup is dus de groep waar alle kometen inzitten en dit zal ze ook 'managen'. We hebben als eerste een methode <code>moveTowardsCamera</code> die elke komeet iedere Tick een beetje dichter naar de speler brengt. De snelheid waarmee dit gebeurt wordt bijgehouden in <code>speed</code>. We hebben verder nog een methode <code>createAsteroid</code> die een nieuwe komeet toevoegd aan de groep. <code>checkIfAsteroidToClose</code> staat in om te kijken of een komeet tegen de speler is gevlogen, deze bound is gedefiniëerd in <code>allowedDistance</code>. Wanneer een komeet te dicht is, zal dan ook <code>Game.playerLostALive</code> opgeroepen worden. Verder hebben we een methode die elke seconde één komeet zal aanmaken en de snelheid waarmee de kometen naar de speler toe vliegen zal verhogen met <code>speedIncrement</code>.
         </p>
 
 <pre><code>import { Group } from 'three';
@@ -588,7 +588,7 @@ export class AsteroidGroup extends Group {
         <h3>GameView.setupXR</h3>
 
         <p>
-            Na dat alles klaar gezet is in <code>initScene</code> kunnen we nu onze XR gaan klaarmaken. We zetten <code>xr.enabled</code> op true. We maken een VRButton die het mogelijk maakt om als speler de VR experience op te starten en we halen een controller op die <code>game.buttonPressed</code> wordt beschreven wat het juist doet.
+            Na dat alles klaargezet is in <code>initScene</code> kunnen we nu onze XR gaan klaarmaken. We zetten <code>xr.enabled</code> op true. We maken een VRButton die het mogelijk maakt om als speler de VR-ervaring op te starten en we halen een controller op die <code>game.buttonPressed</code> wordt beschreven wat het juist doet.
         </p>
 
 <pre><code>private setupXR() {
@@ -610,7 +610,7 @@ export class AsteroidGroup extends Group {
         <h3>GameView.handleCameraMovement</h3>
 
         <p>
-            Alles is klaar om de kometen te onderscheppen. We zetten daarvoor de positie van raycaster gelijk met de workingPositie (Vector3, Matrix4) waar we ons bevinden. We kunnen dit zien als een 'ray' die 'gecast' wordt, bekijk dit als een optische draad die kan verstoord worden door een object. Wanneer een object deze draad aanraakt zal deze worden toegevoegd in de intersectObjects. We kunnen nu elke komeet die onderschept wordt gaan verwijderen uit de AsteroidGroup en de <code>game.playerScored</code> gaan oproepen.
+            Alles is klaar om de kometen te onderscheppen. We zetten daarvoor de positie van raycaster gelijk met de workingPositie (Vector3, Matrix4) waar we ons bevinden. We kunnen dit zien als een 'ray' die 'gecast' wordt, bekijk dit als een optische draad die kan verstoord worden door een object. Wanneer een object deze draad aanraakt, zal deze worden toegevoegd in de intersectObjects. We kunnen nu elke komeet die onderschept wordt verwijderen uit de AsteroidGroup en de <code>game.playerScored</code> oproepen.
         </p>
     
 <pre><code>private handleCameraMovement() {
@@ -635,7 +635,7 @@ export class AsteroidGroup extends Group {
         <h2>Gameloop</h2>
 
         <p>
-            De hoofd Gameloop die elke Tick wordt opgeroepen zal het volgende uitvoeren. We kijken als we een VR sessie hebben en dat het spel gestart is. Wanneer dit gestart is gaan we nagaan of de speler verloren is. Wanneer een speler verloren is zullen de volgende zaken dan niet meer worden uitgevoerd. Elke komeet wordt een beetje naar de speler verschoven. We moeten onze raycaster gaan updaten om te kometen te onderscheppen en wanneer één seconde is verlopen, gaan we een nieuwe komeet toevoegen en de snelheid wat aanpassen.
+            De gameloop die elke Tick wordt opgeroepen, zal het volgende uitvoeren: we kijken of we een VR-sessie hebben en of het spel gestart is. Wanneer dit gestart is, gaan we na of de speler verloren is. Wanneer een speler verloren is, zullen de volgende zaken dan niet meer worden uitgevoerd. Elke komeet wordt een beetje naar de speler verschoven. We moeten onze raycaster gaan updaten om de kometen te onderscheppen en wanneer één seconde is verlopen, gaan we een nieuwe komeet toevoegen en de snelheid wat aanpassen.
         </p>
 
 <pre><code>private update() {
