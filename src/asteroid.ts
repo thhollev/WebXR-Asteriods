@@ -2,7 +2,7 @@
  * @author Thomas Hollevoet
  */
 
-import { Object3D } from 'three';
+import { Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Util } from './util';
 
@@ -26,7 +26,11 @@ export class Asteroid extends Object3D {
             Util.random(0, 3), // y
             Util.random(-4,-2) // z
         );
-        
-        this.rotation.set(Util.random(0, Math.PI), Util.random(0, Math.PI), Util.random(0, Math.PI));
+       
+        this.rotation.set(
+            Util.random(0, Math.PI),
+            Util.random(0, Math.PI),
+            Util.random(0, Math.PI)
+        );
     }
 }

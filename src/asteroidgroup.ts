@@ -27,18 +27,18 @@ export class AsteroidGroup extends Group {
     }
 
     private moveTowardsCamera(camera: THREE.Camera) {
-        this.children.forEach((child: Asteroid) => {
+       this.children.forEach((child: Asteroid) => {
             child.position.set(
-                child.position.x += (camera.position.x - child.position.x) * this.speed,
-                child.position.y += (camera.position.y - child.position.y) * this.speed,
-                child.position.z += (camera.position.z - child.position.z) * this.speed  
+                child.position.x + (camera.position.x - child.position.x) * this.speed,
+                child.position.y + (camera.position.y - child.position.y) * this.speed,
+                child.position.z + (camera.position.z - child.position.z) * this.speed  
             );
             child.rotation.set(
-                child.rotation.x += this.rotationIncrement,
-                child.rotation.y += this.rotationIncrement,
-                child.rotation.z += this.rotationIncrement
+                child.rotation.x + this.rotationIncrement,
+                child.rotation.y + this.rotationIncrement,
+                child.rotation.z + this.rotationIncrement
             );
-        });
+        });     
     }
 
     private createAsteroid() {
